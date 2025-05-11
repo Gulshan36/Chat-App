@@ -22,83 +22,115 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="h-screen pt-20">
-      <div className="max-w-2xl mx-auto p-4 py-8">
-        <div className="bg-base-300 rounded-xl p-6 space-y-8">
-          <div className="text-center">
-            <h1 className="text-2xl font-semibold ">Profile</h1>
-            <p className="mt-2">Your profile information</p>
-          </div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900 flex items-center justify-center p-4">
+          <div className="max-w-3xl w-full bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl p-8 md:p-10 border border-white/20">
+            {/* Header */}
+            <div className="text-center mb-8 pt-6 pb-4 border-b border-gray-300/30">
+              <h1 className="text-3xl font-bold text-white">Your Profile</h1>
+              <p className="text-gray-300 mt-2">Manage your personal information and account details</p>
+            </div>
 
-          {/* avatar upload section */}
-
-          <div className="flex flex-col items-center gap-4">
-            <div className="relative">
-              <img
-                src={selectedImg || authUser.profilePic || "/avatar.png"}
-                alt="Profile"
-                className="size-32 rounded-full object-cover border-4 "
-              />
-              <label
-                htmlFor="avatar-upload"
-                className={`
-                  absolute bottom-0 right-0 
-                  bg-base-content hover:scale-105
-                  p-2 rounded-full cursor-pointer 
-                  transition-all duration-200
-                  ${isUpdatingProfile ? "animate-pulse pointer-events-none" : ""}
-                `}
-              >
-                <Camera className="w-5 h-5 text-base-200" />
-                <input
-                  type="file"
-                  id="avatar-upload"
-                  className="hidden"
-                  accept="image/*"
-                  onChange={handleImageUpload}
-                  disabled={isUpdatingProfile}
+            {/* Avatar Section */}
+            <div className="flex flex-col items-center mb-10">
+              <div className="relative group">
+                <img
+                  src={selectedImg || authUser.profilePic || "/avatar.png"}
+                  alt="Profile"
+                  className="w-36 h-36 rounded-full object-cover border-4 border-white/30 shadow-lg transition-transform group-hover:scale-105"
                 />
-              </label>
+                <label
+                  htmlFor="avatar-upload"
+                  className={`
+                    absolute bottom-1 right-1 bg-indigo-600 p-3 rounded-full cursor-pointer 
+                    hover:bg-indigo-700 transition-all duration-300 shadow-md
+                    ${isUpdatingProfile ? "animate-pulse pointer-events-none" : ""}
+                  `}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    className="w-5 h-5 text-white"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                  </svg>
+                  <input
+                    type="file"
+                    id="avatar-upload"
+                    className="hidden"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    disabled={isUpdatingProfile}
+                  />
+                </label>
+              </div>
+              <p className="text-sm text-gray-300 mt-4">
+                {isUpdatingProfile ? "Uploading..." : "Click the camera to update your photo"}
+              </p>
             </div>
-            <p className="text-sm text-zinc-400">
-              {isUpdatingProfile ? "Uploading..." : "Click the camera icon to update your photo"}
-            </p>
-          </div>
 
-          <div className="space-y-6">
-            <div className="space-y-1.5">
-              <div className="text-sm text-zinc-400 flex items-center gap-2">
-                <User className="w-4 h-4" />
-                Full Name
+            {/* Profile and Account Information */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Profile Information */}
+              <div className="space-y-4">
+                <h2 className="text-xl font-semibold text-white">Personal Information</h2>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
+                    <i data-lucide="user" className="w-5 h-5 text-gray-300"></i>
+                    <div>
+                      <span className="text-sm text-gray-400">Full Name</span>
+                      <p className="text-white font-medium">{authUser?.fullName}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
+                    <i data-lucide="mail" className="w-5 h-5 text-gray-300"></i>
+                    <div>
+                      <span className="text-sm text-gray-400">Email Address</span>
+                      <p className="text-white font-medium">{authUser?.email}</p>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <p className="px-4 py-2.5 bg-base-200 rounded-lg border">{authUser?.fullName}</p>
+
+              {/* Account Information */}
+              <div className="space-y-4">
+                <h2 className="text-xl font-semibold text-white">Account Details</h2>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between p-4 bg-white/5 rounded-lg border border-white/10">
+                    <span className="text-sm text-gray-400">Member Since</span>
+                    <span className="text-white">{authUser.createdAt?.split("T")[0]}</span>
+                  </div>
+                  <div className="flex items-center justify-between p-4 bg-white/5 rounded-lg border border-white/10">
+                    <span className="text-sm text-gray-400">Account Status</span>
+                    <span className="text-green-400 font-medium">Active</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div className="space-y-1.5">
-              <div className="text-sm text-zinc-400 flex items-center gap-2">
-                <Mail className="w-4 h-4" />
-                Email Address
-              </div>
-              <p className="px-4 py-2.5 bg-base-200 rounded-lg border">{authUser?.email}</p>
-            </div>
-          </div>
-
-          <div className="mt-6 bg-base-300 rounded-xl p-6">
-            <h2 className="text-lg font-medium  mb-4">Account Information</h2>
-            <div className="space-y-3 text-sm">
-              <div className="flex items-center justify-between py-2 border-b border-zinc-700">
-                <span>Member Since</span>
-                <span>{authUser.createdAt?.split("T")[0]}</span>
-              </div>
-              <div className="flex items-center justify-between py-2">
-                <span>Account Status</span>
-                <span className="text-green-500">Active</span>
-              </div>
+            {/* Action Buttons */}
+            <div className="mt-8 flex justify-center">
+              <button
+                className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-all duration-300 shadow-md"
+                onClick={() => alert("Edit profile functionality to be implemented")}
+              >
+                Edit Profile
+              </button>
             </div>
           </div>
         </div>
-      </div>
-    </div>
   );
 };
 export default ProfilePage;
