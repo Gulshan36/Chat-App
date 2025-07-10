@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAuthStore } from "../store/useAuthStore";
 import { Eye, EyeOff, Loader2, Lock, Mail, MessageSquare, User } from "lucide-react";
 import { Link } from "react-router-dom";
-import AuthImagePattern from "../component/AuthImagePattern";
+import AuthImagePattern from "../components/AuthImagePattern";
 import toast from "react-hot-toast";
 
 const SignUpPage = () => {
@@ -36,10 +36,10 @@ const SignUpPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/5 flex items-center justify-center p-4">
       {/* Card Container */}
-      <div className="w-full max-w-5xl bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col lg:flex-row">
+      <div className="w-full min-w-sm max-w-4xl min-h-64 max-h-[600px] bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col lg:flex-row">
         {/* Left Side - Illustration */}
-        <div className="hidden lg:block lg:w-1/2 bg-gradient-to-br from-primary to-secondary p-12 flex flex-col justify-center">
-          <div className="text-white text-center space-y-6">
+        <div className="hidden lg:block lg:w-1/2 bg-gradient-to-br from-primary to-secondary p-12 flex-col justify-center">
+          <div className="text-white text-center space-y-9">
             <div className="mx-auto w-24 h-24 bg-white/20 rounded-full flex items-center justify-center">
               <MessageSquare className="w-12 h-12" />
             </div>
@@ -52,14 +52,14 @@ const SignUpPage = () => {
   
         {/* Right Side - Form */}
         <div className="w-full lg:w-1/2 p-8 sm:p-12">
-          <div className="text-center mb-10">
+          <div className="text-center mb-6">
             <h1 className="text-3xl font-bold text-gray-900">Create Account</h1>
             <p className="text-gray-500 mt-2">Get started with your free account</p>
           </div>
   
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-5">
             {/* Full Name Field */}
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">
                 Full Name
               </label>
@@ -80,7 +80,7 @@ const SignUpPage = () => {
             </div>
   
             {/* Email Field */}
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                 Email Address
               </label>
@@ -101,7 +101,7 @@ const SignUpPage = () => {
             </div>
   
             {/* Password Field */}
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               <div className="flex justify-between items-center">
                 <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                   Password

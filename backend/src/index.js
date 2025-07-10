@@ -11,15 +11,17 @@ const app = express();
 
 const PORT= process.env.PORT;
 
-app.use(express.json()); // Middleware to parse JSON requests
+// app.use(express.json()); /// Middleware to parse JSON requests
 app.use(cookieParser()); // Middleware to parse cookies
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use(cors({
   origin: "http://localhost:5173", // Allow requests from the frontend URL
   credentials: true, // Allow credentials (cookies) to be sent
 }));
-
+//Middleware 
 app.use("/api/auth", authRoutes);
-app.use("/api/massage", messageRoutes);
+app.use("/api/massages", messageRoutes);
 
 app.listen(PORT, () => {
   console.log('Server is running on PORT:', + PORT);

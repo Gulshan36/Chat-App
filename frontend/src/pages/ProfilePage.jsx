@@ -7,19 +7,18 @@ const ProfilePage = () => {
   const [selectedImg, setSelectedImg] = useState(null);
 
   const handleImageUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+  const file = e.target.files[0];
+  if (!file) return;
 
-    const reader = new FileReader();
-
-    reader.readAsDataURL(file);
-
-    reader.onload = async () => {
-      const base64Image = reader.result;
-      setSelectedImg(base64Image);
-      await updateProfile({ profilePic: base64Image });
-    };
+  const reader = new FileReader();
+  reader.onloadend = async () => {
+    const base64WithPrefix = reader.result;
+    setSelectedImg(base64WithPrefix);
+    await updateProfile({ profilePic: base64WithPrefix });
   };
+
+  reader.readAsDataURL(file); 
+};
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900 flex items-center justify-center p-4">
